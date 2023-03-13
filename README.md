@@ -74,4 +74,16 @@ A: [ACCEPTABLE/NOT ACCEPTABLE]
 
 # Audit scope
 
+
+[sense-v1 @ 82abac25404d83b7aefaaeb46631f1d050dc4a4e](https://github.com/sense-finance/sense-v1/tree/82abac25404d83b7aefaaeb46631f1d050dc4a4e)
+- [sense-v1/pkg/core/src/Divider.sol](sense-v1/pkg/core/src/Divider.sol)
+- [sense-v1/pkg/core/src/Periphery.sol](sense-v1/pkg/core/src/Periphery.sol)
+- [sense-v1/pkg/core/src/adapters/abstract/BaseAdapter.sol](sense-v1/pkg/core/src/adapters/abstract/BaseAdapter.sol)
+- [sense-v1/pkg/utils/src/Trust.sol](sense-v1/pkg/utils/src/Trust.sol)
+
+[auto-roller @ 60b8b4d56346f053becafb6a9f50f75cebafcafa](https://github.com/sense-finance/auto-roller/tree/60b8b4d56346f053becafb6a9f50f75cebafcafa)
+- [auto-roller/src/RollerPeriphery.sol](auto-roller/src/RollerPeriphery.sol)
+
+
+
 # About [project name]
