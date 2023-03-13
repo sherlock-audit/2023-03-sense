@@ -1,0 +1,23 @@
+[profile.default]
+root = "."
+libs = ['../../node_modules/', '../../']
+tests = "./src/tests"
+fs_permissions = [{ access = "read-write", path = "./" }]
+ffi = true
+verbosity = 3
+# fork_block_number = using last block
+remappings = [
+    '@sense-finance/v1-utils=../utils/src',
+    '@sense-finance/v1-core=./src',
+    '@sense-finance/v1-fuse=../fuse/src',
+    'solmate/=../../node_modules/solmate/src',
+    '@openzeppelin/contracts=../../node_modules/@openzeppelin/contracts',
+    '@yield-daddy=lib/yield-daddy',
+    '@auto-roller=lib/auto-roller',
+    'sense-v1-utils=../utils/src/',
+    '@morpho=lib/morpho-core-v1',
+    '@rari-capital/solmate/=../../node_modules/solmate'
+]
+
+[rpc_endpoints]
+mainnet = "${RPC_URL_MAINNET}"

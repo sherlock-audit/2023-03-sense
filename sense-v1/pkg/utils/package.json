@@ -1,0 +1,29 @@
+{
+    "name": "@sense-finance/v1-utils",
+    "version": "1.2.0",
+    "description": "Sense V1 Contract Utils",
+    "license": "AGPL-3.0-only",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sense-finance/sense-v1.git",
+        "directory": "pkg/utils"
+    },
+    "files": [
+        "src/**/*"
+    ],
+    "scripts": {
+        "lint": "solhint --config ../../.solhint.json -f table src/**/*.sol",
+        "fix": "prettier --ignore-path .gitignore --write src/**/*.sol && yarn lint --fix",
+        "coverage": "time forge coverage --report lcov"
+    },
+    "dependencies": {
+        "@sense-finance/v1-core": "workspace:pkg/core"
+    },
+    "devDependencies": {
+        "@types/prettier": "^2",
+        "prettier": "^2.7.1",
+        "prettier-plugin-solidity": "^1.0.0-beta.17",
+        "solhint": "^3.3.7",
+        "solhint-plugin-prettier": "^0.0.5"
+    }
+}

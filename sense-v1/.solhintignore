@@ -1,0 +1,5 @@
+# folders
+.yarn/
+out/
+node_modules/
+pkg/*/tests/**

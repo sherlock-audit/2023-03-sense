@@ -1,0 +1,61 @@
+{
+  "name": "@sense-finance/v1-deployments",
+  "version": "1.2.0",
+  "description": "Sense V1 Deployments",
+  "license": "AGPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sense-finance/sense-v1.git",
+    "directory": "pkg/deployments"
+  },
+  "files": [
+    "deploy/**/*",
+    "src/**/*"
+  ],
+  "scripts": {
+    "deploy:hardhat-fork:prod": "yarn prepare && hardhat --network hardhat deploy --tags scenario:prod",
+    "deploy:hardhat-fork:sim": "yarn prepare && SIM=true hardhat --network hardhat deploy --tags scenario:simulated",
+    "node:hardhat-fork:prod": "yarn prepare && hardhat --network hardhat node --tags scenario:prod",
+    "node:hardhat-fork:sim": "yarn prepare && SIM=true hardhat --network hardhat node --tags scenario:simulated",
+    "deploy:mainnet": "hardhat --network mainnet deploy --tags scenario:prod",
+    "deploy:goerli": "hardhat --network goerli deploy --tags scenario:simulated",
+    "deploy:kovan": "hardhat --network kovan deploy --tags scenario:simulated",
+    "deploy:arbitrum": "hardhat --network arbitrum deploy --tags scenario:prod",
+    "prepare": "cp -n ../../.env ./.env || true && git submodule update --init --recursive",
+    "lint": "eslint .",
+    "fix": "prettier . --write && yarn lint --fix",
+    "task": "cp ../../.env ./.env && yarn hardhat"
+  },
+  "dependencies": {
+    "@balancer-labs/v2-pool-utils": "2.0.1",
+    "@balancer-labs/v2-solidity-utils": "2.0.0",
+    "@balancer-labs/v2-vault": "2.0.0",
+    "@openzeppelin/contracts": "^4.7.3",
+    "@sense-finance/v1-core": "workspace:pkg/core",
+    "@sense-finance/v1-utils": "workspace:pkg/utils",
+    "@uniswap/permit2-sdk": "^1.2.0",
+    "add": "^2.0.6",
+    "defender-relay-client": "^1.37.0",
+    "fs-extra": "^10.0.1",
+    "solmate": "transmissions11/solmate#v7",
+    "yarn": "^1.22.19"
+  },
+  "devDependencies": {
+    "@nomiclabs/hardhat-etherscan": "^3.1.0",
+    "@tenderly/hardhat-tenderly": "^1.1.6",
+    "dayjs": "^1.11.6",
+    "dotenv": "^16.0.2",
+    "eslint": "^8.22.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "ethers": "^5.5.1",
+    "hardhat": "^2.12.1",
+    "hardhat-abi-exporter": "^2.10.1",
+    "hardhat-contract-sizer": "^2.6.1",
+    "hardhat-deploy": "^0.11.15",
+    "hardhat-deploy-ethers": "^0.3.0-beta.11",
+    "hardhat-preprocessor": "^0.1.5",
+    "hardhat-spdx-license-identifier": "^2.0.3",
+    "hardhat-watcher": "^2.5.0",
+    "prettier": "^2.7.1"
+  }
+}

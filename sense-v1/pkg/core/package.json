@@ -1,0 +1,43 @@
+{
+    "name": "@sense-finance/v1-core",
+    "version": "1.2.0",
+    "description": "Sense V1 Core Contracts",
+    "license": "AGPL-3.0-only",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sense-finance/sense-v1.git",
+        "directory": "pkg/core"
+    },
+    "files": [
+        "src/**/*",
+        "!src/tests/*"
+    ],
+    "scripts": {
+        "test": "time forge test --match-path \"*.t.sol\" --no-match-contract \"PoolManagerLocalTest\"",
+        "test:mainnet": "time forge test --match-path \"*.tm*\" --no-match-contract \"ERC4626StdTest|PoolManagerTest|NoopPoolManagerTest\"",
+        "test:4626": "time && ERC4626_TARGET=true forge test --match-path \"**/*.t.sol\"",
+        "test:4626:integration": "time forge test --match-contract \"ERC4626StdTest|ERC4626Adapters\"",
+        "test:fuzz": "time yarn exec ./src/tests/fuzz.sh",
+        "lint": "solhint --config ../../.solhint.json -f table src/**/*.sol",
+        "fix": "prettier --ignore-path .gitignore --write src/**/*.sol && yarn lint --fix",
+        "script:fork": "cp ../../.env ./.env && time forge script --rpc-url https://eth-mainnet.g.alchemy.com/v2/2NWsUiJppRQbTLKeiXvu0l6JwTTOnKp7 --chain-id 111 --optimize --optimizer-runs 500 -vvv --skip-simulation",
+        "script:mainnet": "cp ../../.env ./.env && time forge script --rpc-url https://eth-mainnet.g.alchemy.com/v2/2NWsUiJppRQbTLKeiXvu0l6JwTTOnKp7 --chain-id 1 --optimize --optimizer-runs 500 -vvv --broadcast --verify",
+        "script:goerli": "cp ../../.env ./.env && time forge script --rpc-url https://eth-goerli.g.alchemy.com/v2/Ef0GN4VITrvOPk8qVRASZLqoCyMWo_Pd --chain-id 5 --optimize --optimizer-runs 500 -vvv --broadcast --verify",
+        "coverage": "time forge coverage --match-path \"**/*.{t.sol,tm.sol}\" --no-match-contract \"ERC4626StdTest\" --report lcov",
+        "gas-snapshot": "forge snapshot --no-match-path \"*.tm*\"",
+        "gas-snapshot:diff": "forge snapshot --no-match-path \"*.tm*\" --diff"
+    },
+    "dependencies": {
+        "@openzeppelin/contracts": "^4.7.3",
+        "@sense-finance/v1-fuse": "workspace:pkg/fuse",
+        "@sense-finance/v1-utils": "workspace:pkg/utils",
+        "solmate": "transmissions11/solmate#v7"
+    },
+    "devDependencies": {
+        "@types/prettier": "^2",
+        "prettier": "^2.7.1",
+        "prettier-plugin-solidity": "^1.0.0-beta.17",
+        "solhint": "^3.3.7",
+        "solhint-plugin-prettier": "^0.0.5"
+    }
+}

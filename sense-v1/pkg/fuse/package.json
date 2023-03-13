@@ -1,0 +1,37 @@
+{
+    "name": "@sense-finance/v1-fuse",
+    "version": "1.2.0",
+    "description": "Sense V1 Fuse Contracts",
+    "license": "AGPL-3.0-only",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sense-finance/sense-v1.git",
+        "directory": "pkg/fuse"
+    },
+    "files": [
+        "src/**/*",
+        "!src/tests/*"
+    ],
+    "scripts": {
+        "test": "time forge test --no-match-path \"*.tm*\"",
+        "test:mainnet": "time forge test --match-path \"*.tm*\" --fork-url https://eth-mainnet.g.alchemy.com/v2/2NWsUiJppRQbTLKeiXvu0l6JwTTOnKp7",
+        "test:coverage": "time forge coverage --no-match-path \"*.tm*\"",
+        "lint": "solhint --config ../../.solhint.json -f table src/**/*.sol",
+        "fix": "prettier --ignore-path .gitignore --write src/**/*.sol && yarn lint --fix",
+        "coverage": "time forge coverage --fork-url https://eth-mainnet.g.alchemy.com/v2/2NWsUiJppRQbTLKeiXvu0l6JwTTOnKp7 --report lcov",
+        "gas-snapshot": "forge snapshot --no-match-path \"*.tm*\"",
+        "gas-snapshot:diff": "forge snapshot --no-match-path \"*.tm*\" --diff"
+    },
+    "dependencies": {
+        "@sense-finance/v1-core": "workspace:pkg/core",
+        "@sense-finance/v1-utils": "workspace:pkg/utils",
+        "solmate": "transmissions11/solmate#v7"
+    },
+    "devDependencies": {
+        "@types/prettier": "^2",
+        "prettier": "^2.7.1",
+        "prettier-plugin-solidity": "^1.0.0-beta.17",
+        "solhint": "^3.3.7",
+        "solhint-plugin-prettier": "^0.0.5"
+    }
+}
