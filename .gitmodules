@@ -1,0 +1,42 @@
+[submodule "sense-v1/pkg/deployments/lib/morpho-core-v1"]
+	path = sense-v1/pkg/deployments/lib/morpho-core-v1
+	url = https://github.com/morpho-dao/morpho-core-v1
+[submodule "sense-v1/pkg/core/lib/yield-daddy"]
+	path = sense-v1/pkg/core/lib/yield-daddy
+	url = https://github.com/timeless-fi/yield-daddy.git
+[submodule "sense-v1/lib/forge-std"]
+	path = sense-v1/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "sense-v1/pkg/core/lib/auto-roller"]
+	path = sense-v1/pkg/core/lib/auto-roller
+	url = https://github.com/sense-finance/auto-roller.git
+[submodule "sense-v1/pkg/deployments/lib/auto-roller"]
+	path = sense-v1/pkg/deployments/lib/auto-roller
+	url = https://github.com/sense-finance/auto-roller.git
+[submodule "sense-v1/pkg/deployments/lib/v1-space"]
+	path = sense-v1/pkg/deployments/lib/v1-space
+	url = https://github.com/sense-finance/space-v1
+[submodule "sense-v1/pkg/core/lib/morpho-core-v1"]
+	path = sense-v1/pkg/core/lib/morpho-core-v1
+	url = https://github.com/morpho-dao/morpho-core-v1
+[submodule "sense-v1/pkg/core/lib/ds-test"]
+	path = sense-v1/pkg/core/lib/ds-test
+	url = https://github.com/dapphub/ds-test
+[submodule "auto-roller/lib/ds-test"]
+	path = auto-roller/lib/ds-test
+	url = https://github.com/dapphub/ds-test
+[submodule "auto-roller/lib/forge-std"]
+	path = auto-roller/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "auto-roller/lib/solmate"]
+	path = auto-roller/lib/solmate
+	url = https://github.com/transmissions11/solmate
+[submodule "auto-roller/lib/sense-v1"]
+	path = auto-roller/lib/sense-v1
+	url = https://github.com/sense-finance/sense-v1
+[submodule "auto-roller/lib/space-v1"]
+	path = auto-roller/lib/space-v1
+	url = https://github.com/sense-finance/space-v1
+[submodule "sense-v1/pkg/core/sense-v1/pkg/core/lib/ds-test"]
+	path = sense-v1/pkg/core/sense-v1/pkg/core/lib/ds-test
+	url = https://github.com/dapphub/ds-test

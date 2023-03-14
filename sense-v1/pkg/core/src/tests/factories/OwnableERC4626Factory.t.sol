@@ -4,6 +4,7 @@ pragma solidity 0.8.15;
 import { AutoRollerFactory } from "@auto-roller/src/AutoRollerFactory.sol";
 import { AutoRoller, RollerUtils, DividerLike, OwnedAdapterLike } from "@auto-roller/src/AutoRoller.sol";
 import { RollerPeriphery } from "@auto-roller/src/RollerPeriphery.sol";
+import { IPermit2 } from "@auto-roller/src/interfaces/IPermit2.sol";
 import { OwnableERC4626Factory } from "../../adapters/abstract/factories/OwnableERC4626Factory.sol";
 import { OwnableERC4626CropFactory } from "../../adapters/abstract/factories/OwnableERC4626CropFactory.sol";
 import { MasterPriceOracle } from "../../adapters/implementations/oracles/MasterPriceOracle.sol";
@@ -204,7 +205,7 @@ contract OwnableERC4626FactoryTest is TestHelper {
 
         // Deploy an Auto Roller Factory
         RollerUtils utils = new RollerUtils(address(divider));
-        RollerPeriphery rollerPeriphery = new RollerPeriphery();
+        RollerPeriphery rollerPeriphery = new RollerPeriphery(IPermit2(address(0)), address(0));
         AutoRollerFactory arFactory = new AutoRollerFactory(
             DividerLike(address(divider)),
             address(balancerVault),

@@ -1,5 +1,5 @@
 
-# [project name] contest details
+# Sense Finance Periphery & Roller Periphery contest details
 
 - Join [Sherlock Discord](https://discord.gg/MABEWyASkp)
 - Submit findings using the issue page in your private contest repo (label issues as med or high)
@@ -7,69 +7,67 @@
 
 # Resources
 
-- [[resource1]](url)
-- [[resource2]](url)
+- [Periphery Docmentation](https://docs.sense.finance/docs/smart-contracts/#core)
+- [Auto Roller Launch Announcement](https://medium.com/sensefinance/auto-rolling-liquidity-coming-to-sense-c5b1ff0f9aeb)
 
 # On-chain context
 
-The README is a **very important** document for the audit. Please fill it out thoroughly and include any other specific info that security experts will need in order to effectively review the codebase.
-
-**Some pointers for filling out the section below:**  
-ERC20/ERC721/ERC777/FEE-ON-TRANSFER/REBASING TOKENS:  
-*Which tokens do you expect will interact with the smart contracts? Please note that these answers have a significant impact on the issues that will be submitted by Watsons. Please list specific tokens (ETH, USDC, DAI) where possible, otherwise "Any"/"None" type answers are acceptable as well.*
-
-ADMIN:
-*Admin/owner of the protocol/contracts.
-Label as TRUSTED, If you **don't** want to receive issues about the admin of the contract being able to steal funds. 
-If you want to receive issues about the Admin of the contract being able to steal funds, label as RESTRICTED & list specific acceptable/unacceptable actions for the admins.*
-
-EXTERNAL ADMIN:
-*These are admins of the protocols your contracts integrate with (if any). 
-If you **don't** want to receive issues about this Admin being able to steal funds or result in loss of funds, label as TRUSTED
-If you want to receive issues about this admin being able to steal or result in loss of funds, label as RESTRICTED.*
- 
 ```
-DEPLOYMENT: [e.g. mainnet, Arbitrum, Optimism, ..]
-ERC20: [e.g. any, none, USDC, USDC and USDT]
-ERC721: [e.g. any, none, UNI-V3]
-ERC777: [e.g. any, none, {token name}]
-FEE-ON-TRANSFER: [e.g. any, none, {token name}]
-REBASING TOKENS: [e.g. any, none, {token name}]
-ADMIN: [trusted, restricted, n/a]
-EXTERNAL-ADMINS: [trusted, restricted, n/a]
+DEPLOYMENT: mainnet, Arbitrum, Optimism
+ERC20: any (USDC, DAI, USDT, ETH, stETH, etc)
+ERC721: none
+ERC777: none
+FEE-ON-TRANSFER: none
+REBASING TOKENS: any
+ADMIN: trusted
+EXTERNAL-ADMINS: restricted
 ```
 
 
-Please answer the following questions to provide more context: 
 ### Q: Are there any additional protocol roles? If yes, please explain in detail:
-1) The roles
-2) The actions those roles can take 
-3) Outcomes that are expected from those roles 
-4) Specific actions/outcomes NOT intended to be possible for those roles
-
 A: 
+
+There are trusted actors that can update contract addresses on the `Periphery` and `Divider` contracts, verify adapters in the `Periphery`, and backfill scales in the `Divider`. These roles are restricted to a small number of trusted actors.
 
 ___
 ### Q: Is the code/contract expected to comply with any EIPs? Are there specific assumptions around adhering to those EIPs that Watsons should be aware of?
-A:
+A: 
+
+No, however the `AutoRoller` that the `RollerPeriphery` interacts with is expected to conform to the ERC4626 standard.
 
 ___
 
 ### Q: Please list any known issues/acceptable risks that should not result in a valid finding.
 A: 
 
+- `eject` is called on the AutoRoller even though it isn't a 4626 function. This code path in the `RollerPeriphy` has been unchanged since the last audit and so doesn't require additional review.
+- the `Divider` is unchanged from previous audits and doesn't require deep review other than what's needed to audit the `Periphery`
+- the `BaseAdapter` is largely unchanged from previous audits and doesn't require deep review other than what's needed to audit the `Periphery`
+
 ____
 ### Q: Please provide links to previous audits (if any).
 A:
+
+- RollerPeriphery.sol
+    - [Sherlock Nov 2022](https://github.com/sense-finance/auto-roller/blob/main/audits/2022.12.6_-_Final_-_Sense_Audit_Report.pdf)
+- Periphery.sol, Divider.sol, BaseAdapter.sol, Trust.sol
+    - [Spearbit Feb 2022](https://github.com/sense-finance/sense-v1/blob/dev/audits/spearbit/2022-01-21.pdf)
+    - [FPS March 2022](https://github.com/sense-finance/sense-v1/blob/dev/audits/fps/2022-03-15.pdf)
 
 ___
 
 ### Q: Are there any off-chain mechanisms or off-chain procedures for the protocol (keeper bots, input validation expectations, etc)? 
 A: 
+
+We expect that the user gets swap quotes from the [0x API](https://docs.0x.org/0x-swap-api/guides/swap-tokens-with-0x-api) and pass them into the relevant function calls.
+
+
 _____
 
 ### Q: In case of external protocol integrations, are the risks of an external protocol pausing or executing an emergency withdrawal acceptable? If not, Watsons will submit issues related to these situations that can harm your protocol's functionality. 
-A: [ACCEPTABLE/NOT ACCEPTABLE] 
+A:
+
+Acceptable
 
 
 # Audit scope
@@ -85,5 +83,67 @@ A: [ACCEPTABLE/NOT ACCEPTABLE]
 - [auto-roller/src/RollerPeriphery.sol](auto-roller/src/RollerPeriphery.sol)
 
 
+# Testing
 
-# About [project name]
+We use [foundry: forge](https://github.com/foundry-rs/foundry) as our development framework. Ensure you have the latest version installed before running the tests.
+
+## Sense v1 Core
+
+### Environment
+
+1. Create a local `.env` file in the root directory of the project
+2. Set `RPC_URL_MAINNET` to a valid RPC URL
+
+### Test
+
+```bash
+# Iniatialize submodules
+git submodule update --init --recursive
+
+# CD into the core contract directory
+cd sense-v1/pkg/core
+yarn install # or npm install
+
+# Run basic tests suite against a local chain. This is all tests ending in .t.sol
+# All tests run with underlying, target and stake aas ERC20 compliant tokens wth 18 decimals
+yarn test
+
+# Run mainnet tests (against a mainnet fork). This is all tests endng in .tm.sol
+# All tests run with underlying, target and stake aas ERC20 compliant tokens wth 18 decimals
+# (unless they use existing tokens)
+yarn test:mainnet
+```
+
+
+## Roller
+
+### Environment
+
+1. Create a local `.env` file in the root directory of the project
+2. Set `RPC_URL_MAINNET` to a valid RPC URL
+
+### Test
+
+```bash
+# Iniatialize submodules
+git submodule update --init --recursive
+
+# CD into the auto roller directory
+cd auto-roller
+
+# Initialize sense-v1 deps
+cd lib/sense-v1
+yarn install # or npm install
+cd ../..
+
+# Run basic tests suite against a local chain. This is all tests ending in .t.sol
+forge test --match-path "*.t.sol"
+
+# Run mainnet tests (against a mainnet fork). This is all tests ending in .tm.sol
+forge test --match-path "*.tm.sol"
+```
+
+
+# About Sense Finance
+
+For DeFi users looking to employ their yield-bearing assets or hedge/trade against future yields, Sense is a decentralized protocol that provides access to interest rate management. Unlike other fixed-income protocols, Sense provides a secure and scalable design that lacks liquidation risk and interfaces with a wide selection of yield sources. 
