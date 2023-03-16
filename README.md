@@ -97,12 +97,12 @@ We use [foundry: forge](https://github.com/foundry-rs/foundry) as our developmen
 ### Test
 
 ```bash
-# Iniatialize submodules
-git submodule update --init --recursive
+# Iniatialize submodules (NOT RECURSIVE)
+git submodule update --init
 
 # CD into the core contract directory
 cd sense-v1/pkg/core
-yarn install # or npm install
+yarn install # requires yarn v2
 
 # Run basic tests suite against a local chain. This is all tests ending in .t.sol
 # All tests run with underlying, target and stake aas ERC20 compliant tokens wth 18 decimals
@@ -125,15 +125,15 @@ yarn test:mainnet
 ### Test
 
 ```bash
-# Iniatialize submodules
-git submodule update --init --recursive
+# Iniatialize submodules (NOT RECURSIVE)
+git submodule update --init
 
 # CD into the auto roller directory
 cd auto-roller
 
 # Initialize sense-v1 deps
 cd lib/sense-v1
-yarn install # or npm install
+yarn install # requires yarn v2
 cd ../..
 
 # Run basic tests suite against a local chain. This is all tests ending in .t.sol
